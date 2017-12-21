@@ -9,7 +9,7 @@ from  websteel_exc import RangeNumericsCountMismatch
 from urlparse import urlparse
 from urlparse import urljoin
 from bs4 import BeautifulSoup
-
+PDF = ['.pdf']
 IMAGE = ['.jpg', '.png' '.jpeg', '.gif']
 VIDS = ['.mp4', '.avi', '.flv']
 MUSIC = ['.mp3', 'ogg']
@@ -102,7 +102,7 @@ def get_page_data(page_url, output_dir, base_url=None, kill=False):
             raise
 
     filename = page_url[page_url.rfind('/')+1:]
-    if not response.status_code == 404 and len(response.content) >= 2000:
+    if not response.status_code == 404 and len(response.content) >= 12000:
         with open('{}/{}'.format(dirname, filename), 'wb') as file_path:
             print('Downloading {} to {}'.format(page_url, dirname))
             file_path.write(response.content)
@@ -135,13 +135,13 @@ def get_forum_docs(start_page, last_page, forum_link):
 
 
 def get_direct_links(page_url): #: http://xyz.com/a= &b= &c=img.jpg
-    for each in generate_links(page_url, [(5, 842, 1000), (3, 1, 100)]):
-        get_page_data(each, '/~/Downloads')
+    for each in generate_links(page_url, [(5, 1000, 2000),(3, 0, 25)]):
+        get_page_data(each, '~/Downloads/')
 
 
 if __name__ == '__main__':
-    forum_link = ''
-    get_forum_docs(forum_link=forum_link, start_page=0, last_page=10)
+
+    #get_forum_docs(forum_link=forum_link, start_page=0, last_page=336)
     '''
     Scenarios : 
     Single page with many links
